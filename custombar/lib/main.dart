@@ -1,5 +1,6 @@
 import 'package:custombar/src/cores/routes/appRoutes.dart';
 import 'package:custombar/src/cores/routes/routeNames.dart';
+import 'package:custombar/src/view/screens/homeScreen.dart';
 import 'package:custombar/src/view/screens/onBoarding/appLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: RouteNames.appLoader,
         getPages: AppRoutes.routes,
-        home: const AppLoader(),
+        home: const HomeScreen(),
       );
     });
   }
