@@ -34,14 +34,13 @@ class RandomDataScreen extends StatelessWidget {
                   ),
                   text: "Graphical view",
                 ),
-
               ],
             ),
           ),
           body:  TabBarView(
             children: [
-              RandomResultScreen(),
-              RandsimScreen(),
+               RandomResultScreen(),
+              const RandsimScreen(),
               GraphicalResultScreen()
             ],
           ),

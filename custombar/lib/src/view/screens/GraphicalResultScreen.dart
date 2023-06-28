@@ -1,24 +1,21 @@
+import 'package:custombar/src/controller/gantChartController.dart';
 import 'package:custombar/src/view/components/barGraph.dart';
+import 'package:custombar/src/view/components/customGantChartMultiServer.dart';
+import 'package:custombar/src/view/components/customGantChartSingleServer.dart';
 import 'package:custombar/src/view/components/graphName.dart';
 import 'package:custombar/src/view/components/statsResult.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GraphicalResultScreen extends StatelessWidget {
   GraphicalResultScreen({Key? key}) : super(key: key);
 
-  Map<String, double> dataMap = {
-    "avg TAT": 5,
-    "avg ST": 2,
-    "avg WT": 4,
-    "avg RT": 1,
-  };
-
-  var barData = [10, 21, 80, 40, 45];
-
   @override
   Widget build(BuildContext context) {
+    ChartController chartController = Get.put(ChartController());
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,37 +41,21 @@ class GraphicalResultScreen extends StatelessWidget {
                       ),
                     ),
                     PieChart(
-                      dataMap: dataMap,
-                      legendOptions:
-                          LegendOptions(legendPosition: LegendPosition.right),
-                      chartValuesOptions:
-                          ChartValuesOptions(showChartValuesInPercentage: true),
+                      dataMap: chartController.dataMap,
+                      legendOptions: LegendOptions(legendPosition: LegendPosition.right),
+                      chartValuesOptions: ChartValuesOptions(showChartValuesInPercentage: true),
                     ),
                   ],
                 ),
               ),
               Expanded(
                 flex: 2,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.w),
-                      child: GraphName(
-                        graphName: "TAT & WT",
-                      ),
-                    ),
-                    PieChart(
-                      dataMap: dataMap,
-                      legendOptions:
-                          LegendOptions(legendPosition: LegendPosition.right),
-                      chartValuesOptions:
-                          ChartValuesOptions(showChartValuesInPercentage: true),
-                    ),
-                  ],
+                child: (SingleServerGanttChart(customers: chartController.customers,)
                 ),
               ),
             ],
           ),
+
           SizedBox(
             height: 4.h,
           ),
@@ -91,7 +72,7 @@ class GraphicalResultScreen extends StatelessWidget {
                     height: 40.h,
                     width: 30.w,
                     child: MyBarGraph(
-                      data: barData,
+                      data: chartController.barData,
                     ),
                   ),
                 ],
@@ -106,7 +87,7 @@ class GraphicalResultScreen extends StatelessWidget {
                     height: 40.h,
                     width: 30.w,
                     child: MyBarGraph(
-                      data: barData,
+                      data: chartController.barData,
                     ),
                   ),
                 ],
@@ -121,7 +102,7 @@ class GraphicalResultScreen extends StatelessWidget {
                     height: 40.h,
                     width: 30.w,
                     child: MyBarGraph(
-                      data: barData,
+                      data: chartController.barData,
                     ),
                   ),
                 ],

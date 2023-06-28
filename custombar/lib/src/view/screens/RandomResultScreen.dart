@@ -1,12 +1,19 @@
+import 'package:custombar/src/controller/randomResultScreenController.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class RandomResultScreen extends StatelessWidget {
-  const RandomResultScreen({Key? key}) : super(key: key);
+
+  var list = [1,2,3,4,5,6,7,8,9,9];
+   RandomResultScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    RandomResultScreenController randomResultScreenController = Get.put(RandomResultScreenController());
     return DataTable(
       columns: const [
+        DataColumn(label: Text("S/NO")),
         DataColumn(label: Text("Cummulative probablity")),
         DataColumn(label: Text("CP look-up")),
         DataColumn(label: Text("AVG time B/W arrival")),
@@ -14,14 +21,16 @@ class RandomResultScreen extends StatelessWidget {
         DataColumn(label: Text("arrival time")),
         DataColumn(label: Text("service time")),
       ],
-      rows: const [
-        DataRow(cells: [
-          DataCell(Text("0.3345")),
-          DataCell(Text("0")),
-          DataCell(Text("1")),
-          DataCell(Text("3")),
-          DataCell(Text("0")),
-          DataCell(Text("2")),
+      rows:  [
+        for (int i = 0; i < 7; i++)
+          DataRow(cells: [
+                DataCell(Text(list[i].toString())),
+                DataCell(Text(randomResultScreenController.probablityList[i].toString())),
+                DataCell(Text(list[i].toString())),
+                DataCell(Text(list[i].toString())),
+                DataCell(Text(list[i].toString())),
+                DataCell(Text(list[i].toString())),
+                DataCell(Text(list[i].toString()))
         ])
       ],
     );

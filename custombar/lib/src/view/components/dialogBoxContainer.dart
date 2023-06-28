@@ -6,7 +6,16 @@ import 'dialogButton.dart';
 
 class DialogBoxContainer extends StatelessWidget {
   var tap;
-   DialogBoxContainer({Key? key,required this.tap}) : super(key: key);
+  var controller1;
+  var controller2;
+  var controller3;
+  DialogBoxContainer(
+      {Key? key,
+      required this.tap,
+      required this.controller1,
+      required this.controller2,
+      required this.controller3})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +30,9 @@ class DialogBoxContainer extends StatelessWidget {
           SizedBox(
             height: 1.h,
           ),
-          const CustomInputField(),
+          CustomInputField(
+            controller: controller1,
+          ),
           SizedBox(
             height: 1.h,
           ),
@@ -30,7 +41,7 @@ class DialogBoxContainer extends StatelessWidget {
           SizedBox(
             height: 1.h,
           ),
-          const CustomInputField(),
+          CustomInputField(controller: controller2),
           SizedBox(
             height: 1.h,
           ),
@@ -39,13 +50,9 @@ class DialogBoxContainer extends StatelessWidget {
           SizedBox(
             height: 1.h,
           ),
-          const CustomInputField(),
-          SizedBox(height:2.h),
-
-          InkWell(
-            onTap: tap,
-              child: DialogBoxButton()
-          )
+          CustomInputField(controller: controller3),
+          SizedBox(height: 2.h),
+          InkWell(onTap: tap, child: DialogBoxButton())
         ]));
   }
 }
