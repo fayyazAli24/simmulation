@@ -1,5 +1,5 @@
 class RouteNames{
   RouteNames._();
-  static const appLoader = '/';
+  static const homeScreen = '/homeScreen';
 
 }

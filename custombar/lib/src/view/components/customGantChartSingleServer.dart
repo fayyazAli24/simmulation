@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../services/gantDataModel.dart';
 
@@ -44,7 +45,13 @@ class SingleServerGanttChart extends StatelessWidget {
           return Container(
             width: serviceTime.toDouble() * 40,
             margin: EdgeInsets.all(2),
-            color: Colors.blue,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              border: Border.all(
+                color: Colors.black,
+                width: 5
+              )
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

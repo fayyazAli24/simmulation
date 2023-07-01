@@ -32,6 +32,7 @@ class MainPageContainer extends StatelessWidget {
       flex: 1,
       child: Container(
         width: 100.w,
+        height:50.h,
         // height: 50.h,
         color: colors,
         child: Column(

@@ -1,7 +1,6 @@
 import 'package:custombar/src/cores/routes/appRoutes.dart';
 import 'package:custombar/src/cores/routes/routeNames.dart';
 import 'package:custombar/src/view/screens/homeScreen.dart';
-import 'package:custombar/src/view/screens/onBoarding/appLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -19,14 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return GetMaterialApp(
-        // theme: ThemeData(
-        //   colorScheme: ThemeData().colorScheme.copyWith(
-        //     primary: AppColors.redAccent,
-        //     secondary: AppColors.pureWhite,
-        //   ),
-        // ),
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteNames.appLoader,
+        initialRoute: RouteNames.homeScreen,
         getPages: AppRoutes.routes,
         home:  HomeScreen(),
       );

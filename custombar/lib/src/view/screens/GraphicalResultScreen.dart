@@ -1,4 +1,6 @@
 import 'package:custombar/src/controller/gantChartController.dart';
+import 'package:custombar/src/controller/randomResultScreenController.dart';
+import 'package:custombar/src/view/components/LineChart.dart';
 import 'package:custombar/src/view/components/barGraph.dart';
 import 'package:custombar/src/view/components/customGantChartMultiServer.dart';
 import 'package:custombar/src/view/components/customGantChartSingleServer.dart';
@@ -16,10 +18,15 @@ class GraphicalResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ChartController chartController = Get.put(ChartController());
+    RandomResultScreenController randomResultScreenController =
+        Get.put(RandomResultScreenController());
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(
+            height: 4.h,
+          ),
           Center(
               child: Text(
             "Graphical illustration of Data",
@@ -28,34 +35,56 @@ class GraphicalResultScreen extends StatelessWidget {
           SizedBox(
             height: 3.h,
           ),
+          Center(child: GraphName(graphName: "GantChart ")),
+          SizedBox(
+            height: 3.h,
+          ),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(left: 6.5.w),
+              child: MultiServerGanttChart(customers: chartController.customers)
+            ),
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 7.w),
-                      child: GraphName(
-                        graphName: "customer time dist",
-                      ),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 8.w),
+                    child: GraphName(
+                      graphName: "customer time distribution",
                     ),
-                    PieChart(
+                  ),
+                  Container(
+                    // height: 40.h,
+                    child: PieChart(
+                      chartRadius: 200,
                       dataMap: chartController.dataMap,
-                      legendOptions: LegendOptions(legendPosition: LegendPosition.right),
-                      chartValuesOptions: ChartValuesOptions(showChartValuesInPercentage: true),
+                      legendOptions:
+                          LegendOptions(legendPosition: LegendPosition.right),
+                      chartValuesOptions:
+                          ChartValuesOptions(showChartValuesInPercentage: true),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Expanded(
-                flex: 2,
-                child: (SingleServerGanttChart(customers: chartController.customers,)
-                ),
+              Column(
+                children: [
+                  GraphName(graphName: "ST & ET"),
+                  SizedBox(height: 3.h),
+                  Container(
+                    width: 65.w,
+                    height: 60.h,
+                    child: CustomLineChart(),
+                  ),
+                ],
               ),
             ],
           ),
-
           SizedBox(
             height: 4.h,
           ),

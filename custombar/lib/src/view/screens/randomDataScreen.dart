@@ -1,7 +1,10 @@
-import 'package:custombar/src/view/components/customTabBar.dart';
+import 'package:custombar/src/controller/randomResultScreenController.dart';
 import 'package:custombar/src/view/screens/RandomResultScreen.dart';
+
 import 'package:custombar/src/view/screens/randsimResultScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'GraphicalResultScreen.dart';
 
@@ -10,6 +13,8 @@ class RandomDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    RandomResultScreenController randomResultScreenController = Get.put(RandomResultScreenController());
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -39,9 +44,9 @@ class RandomDataScreen extends StatelessWidget {
           ),
           body:  TabBarView(
             children: [
-               RandomResultScreen(),
-              const RandsimScreen(),
-              GraphicalResultScreen()
+              RandomResultScreen(),
+              const  RandsimScreen(),
+              GraphicalResultScreen(),
             ],
           ),
         ));
