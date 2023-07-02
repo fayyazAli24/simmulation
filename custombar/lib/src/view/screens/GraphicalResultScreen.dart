@@ -17,6 +17,8 @@ class GraphicalResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     ChartController chartController = Get.put(ChartController());
     RandomResultScreenController randomResultScreenController =
         Get.put(RandomResultScreenController());

@@ -22,7 +22,9 @@ class RandomResultScreenController extends GetxController {
   RxList<int> turnAroundTimeList = [0].obs;
   RxList<int> waitTimeList = [0].obs;
   RxList<int> responseTimeList = [0].obs;
-  dynamic gantChartData=[].obs;
+  var upperLimit=0.obs;
+  var lowerLimit = 0.obs;
+  List<Customer> gantChartData=[];
 
   void calculateProbablityUsingPoisson() {
     var list = <double>[];
@@ -67,13 +69,6 @@ class RandomResultScreenController extends GetxController {
   }
 
   void serviceTimeCalculator() {
-    // List<int> list = [];
-    // var random = Random();
-    // for (int i = 0; i < 10; i++) {
-    //   var randomNumbers = random.nextInt(9) + 1;
-    //   list.add(randomNumbers);
-    // }
-    // serviceList.value = list;
     Random random = Random();
     List<int> calculatedServiceTimeList = [];
     for (int i = 0; i < 10; i++) {
@@ -208,12 +203,24 @@ class RandomResultScreenController extends GetxController {
 
 
 void initializeGantChart(){
-    dynamic list=[];
+    List<Customer> list=[];
     for (int i=0;i<10;i++){
       list.add(Customer( serviceList[i],arrivalList[i], 0, 0));
       print(list);
     }
-    gantChartData.value = list;
+    gantChartData = list;
+    update();
+}
+
+void calculateMGserviceTime(){
+    List<int> list =[];
+    var number;
+    Random random = Random();
+    for(int i=0;i<10;i++){
+      number = upperLimit.value + random.nextInt(upperLimit.value-lowerLimit.value);
+      list.add(number);
+    }
+    serviceList.value = list;
     update();
 }
 

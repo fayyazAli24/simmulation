@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../services/gantDataModel.dart';
 
 class SingleServerGanttChart extends StatelessWidget {
-  dynamic customers;
+  List<Customer> customers;
 
   SingleServerGanttChart({required this.customers});
 
@@ -32,7 +31,7 @@ class SingleServerGanttChart extends StatelessWidget {
             // Server is busy, calculate waiting time and update completion time
             customer.server = 1;
             customer.waitingTime = serverCompletionTime - arrivalTime;
-            serverCompletionTime += int.parse(serviceTime);
+            serverCompletionTime += (serviceTime);
           }
 
           final updatedArrivalTime = arrivalTime + customer.waitingTime;

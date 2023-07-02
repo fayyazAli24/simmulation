@@ -10,7 +10,7 @@ import '../../services/gantDataModel.dart';
 
 
 class MultiServerGanttChart extends StatelessWidget {
-  dynamic customers=[];
+  List<Customer> customers=[];
   MultiServerGanttChart({required this.customers});
 
   @override
@@ -43,11 +43,11 @@ class MultiServerGanttChart extends StatelessWidget {
             if (server1CompletionTime <= server2CompletionTime) {
               customer.server = 1;
               customer.waitingTime = server1CompletionTime - arrivalTime;
-              server1CompletionTime += int.parse(serviceTime);
+              server1CompletionTime += (serviceTime);
             } else {
               customer.server = 2;
               customer.waitingTime = server2CompletionTime - arrivalTime;
-              server2CompletionTime += int.parse(serviceTime);
+              server2CompletionTime += (serviceTime);
             }
           }
 
