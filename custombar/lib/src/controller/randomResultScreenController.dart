@@ -6,29 +6,22 @@ import '../services/gantDataModel.dart';
 class RandomResultScreenController extends GetxController {
   @override
   void onInit() {
-    calculateProbablityUsingPoisson();
-    interArrivalTimeCalculator();
-    calculateArrivalList();
-    serviceTimeCalculator();
-    calculateUpdatedArrivalTimes();
-    calculateTurnAroundTime();
-    calculateWaitTime();
-    calculateResponseTime();
     super.onInit();
   }
 
   RxDouble mean = 0.0.obs;
+  RxInt servers=0.obs;
   RxDouble meanService = 0.0.obs;
   RxList<double> probablityList = RxList<double>();
   var interArrivalList = [].obs;
   RxList<double> lookupProbablity = [0.0].obs;
-  var arrivalList = [].obs;
-  var serviceList = [].obs;
-  var startTimeList = [].obs;
-  var endTimeList = [].obs;
-  var turnAroundTimeList = [].obs;
-  var waitTimeList = [].obs;
-  var responseTimeList = [].obs;
+  RxList<int> arrivalList = [0].obs;
+  RxList<int> serviceList = [0].obs;
+  RxList<int> startTimeList = [0].obs;
+  RxList<int> endTimeList = [0].obs;
+  RxList<int> turnAroundTimeList = [0].obs;
+  RxList<int> waitTimeList = [0].obs;
+  RxList<int> responseTimeList = [0].obs;
   dynamic gantChartData=[].obs;
 
   void calculateProbablityUsingPoisson() {
@@ -54,7 +47,7 @@ class RandomResultScreenController extends GetxController {
   }
 
   void calculateArrivalList() {
-    var list = [];
+    List<int> list = [];
     var result;
 
     for (int i = 1; i < interArrivalList.length; i++) {
@@ -74,24 +67,25 @@ class RandomResultScreenController extends GetxController {
   }
 
   void serviceTimeCalculator() {
-    var list = [];
-    var random = Random();
-    for (int i = 0; i < 10; i++) {
-      var randomNumbers = random.nextInt(9) + 1;
-      list.add(randomNumbers);
-    }
-    serviceList.value = list;
-    // Random random = Random();
-    // var calculatedServiceTimeList = [];
+    // List<int> list = [];
+    // var random = Random();
     // for (int i = 0; i < 10; i++) {
-    //   double randomNumber = random.nextDouble();
-    //   while (randomNumber == 0 || randomNumber == 1) {
-    //     randomNumber = random.nextDouble();
-    //   }
-    //   var estimatedNumber = (randomNumber * meanService.value).ceil();
-    //   calculatedServiceTimeList.add(estimatedNumber);
+    //   var randomNumbers = random.nextInt(9) + 1;
+    //   list.add(randomNumbers);
     // }
-    // serviceList.value = calculatedServiceTimeList;
+    // serviceList.value = list;
+    Random random = Random();
+    List<int> calculatedServiceTimeList = [];
+    for (int i = 0; i < 10; i++) {
+      double randomNumber = random.nextDouble();
+      while (randomNumber == 0 && randomNumber == 1) {
+        randomNumber = random.nextDouble();
+      }
+      var estimatedNumber = (-mean.value * log(randomNumber));
+      var newValue = estimatedNumber.ceil();
+      calculatedServiceTimeList.add(newValue);
+    }
+    serviceList.value = calculatedServiceTimeList;
   }
 
   void calculateUpdatedArrivalTimes() {
@@ -110,26 +104,36 @@ class RandomResultScreenController extends GetxController {
       startTime.add(updatedArrivalTime);
       // Update the server completion time
       serverCompletionTime = updatedArrivalTime + serviceTime + 1;
-      print(
-          "server completion time :${serverCompletionTime}updated ${updatedArrivalTime}service $serviceTime");
+      // print(
+      //     "server completion time :${serverCompletionTime}updated ${updatedArrivalTime}service $serviceTime");
     }
     startTime.add(serverCompletionTime);
     startTimeList.value = startTime;
     endTimeList.value = startTime;
   }
 
-  void calculateTurnAroundTime() {
-    var tempList = [];
+  void calculateTurnAroundTimeforSingle() {
+    List<int> tempList = [];
     var result = 0;
     for (int i = 0; i < 10; i++) {
-      result = endTimeList[i + 1] - arrivalList[i];
+      result = endTimeList[i+1] - arrivalList[i];
+      tempList.add(result);
+    }
+    turnAroundTimeList.value = tempList;
+  }
+
+  void calculateTurnAroundTimeforDouble() {
+    List<int> tempList = [];
+    var result = 0;
+    for (int i = 0; i < 10; i++) {
+      result = endTimeList[i] - arrivalList[i];
       tempList.add(result);
     }
     turnAroundTimeList.value = tempList;
   }
 
   void calculateWaitTime() {
-    var tempList = [];
+    List<int> tempList = [];
     var result = 0;
     for (int i = 0; i < 10; i++) {
       result = turnAroundTimeList[i] - serviceList[i];
@@ -139,7 +143,7 @@ class RandomResultScreenController extends GetxController {
   }
 
   void calculateResponseTime() {
-    var tempList = [];
+    List<int> tempList = [];
     for (int i = 0; i < 10; i++) {
       var result = startTimeList[i] - arrivalList[i];
       tempList.add(result);
@@ -155,49 +159,56 @@ class RandomResultScreenController extends GetxController {
     return result;
   }
 
-  // void calculateStartAndEndTimes() {
-  //   var prevEnd = [0, 0];
-  //   var startTimeArr = [];
-  //   var endTimeArr = [];
-  //   int end_time = 0;
-  //
-  //   for (int j = 0; j < 10; j++) {
-  //     int min = prevEnd[0];
-  //     int index = 0;
-  //
-  //     // Find the minimum value in prevEnd
-  //     for (int i = 0; i < 2; i++) {
-  //       if (prevEnd[i] < min) {
-  //         min = prevEnd[i];
-  //       }
-  //     }
-  //     // Find the index of the minimum value in prevEnd
-  //     for (int i = 0; i < 2; i++) {
-  //       if (prevEnd[i] == min) {
-  //         index = i;
-  //         break;
-  //       }
-  //     }
-  //     if (arrivalList[j] < min) {
-  //       startTimeArr[j] = min;
-  //       endTimeArr[j] = min + serviceList[j];
-  //       prevEnd[index] = min + int.parse(serviceList[j]);
-  //     } else {
-  //       for (int i = 0; i < 2; i++) {
-  //         if (arrivalList[j] >= prevEnd[i]) {
-  //           end_time = arrivalList[j] + serviceList[j];
-  //           startTimeArr[j] = arrivalList[j];
-  //           endTimeArr[j] = end_time;
-  //           prevEnd[i] = end_time;
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  void calculateStartAndEndTime (){
+    List<int> prevEnd = [0, 0];
+    List<int> startTimeArr = List.filled(11, 0);
+    List<int> endTimeArr = List.filled(11, 0);
+
+    // Loop through each task
+    for (int j = 0; j < 10; j++) {
+      int minValue = prevEnd.reduce((a, b) => a < b ? a : b);
+      int index = prevEnd.indexOf(minValue);
+
+      // If the arrival time is less than the minimum previous end time
+      if (arrivalList[j] < minValue) {
+        startTimeArr[j] = minValue;
+        endTimeArr[j] = minValue + serviceList[j];
+        prevEnd[index] = minValue + serviceList[j];
+      } else {
+        // Find a suitable slot for the task
+        for (int i = 0; i < 2; i++) {
+          if (arrivalList[j] >= prevEnd[i]) {
+            endTimeArr[j] = arrivalList[j] + serviceList[j];
+            startTimeArr[j] = arrivalList[j];
+            prevEnd[i] = endTimeArr[j];
+            break;
+          }
+        }
+
+        startTimeList.value = startTimeArr;
+        endTimeList.value = endTimeArr;
+      }
+    }
+    // Print the arrival and service times
+    print("ARR , SER");
+    print("");
+    print("");
+    for (int i = 0; i < 10; i++) {
+      print("${arrivalList[i]} , ${serviceList[i]}");
+    }
+    print("");
+    print("");
+
+    // Print the start and end times
+    print("STA , END");
+    for (int i = 0; i < 10; i++) {
+      print("${startTimeArr[i]} , ${endTimeArr[i]}");
+    }
+  }
+
 
 void initializeGantChart(){
-    var list=[];
+    dynamic list=[];
     for (int i=0;i<10;i++){
       list.add(Customer( serviceList[i],arrivalList[i], 0, 0));
       print(list);
@@ -205,7 +216,5 @@ void initializeGantChart(){
     gantChartData.value = list;
     update();
 }
-
-
 
 }

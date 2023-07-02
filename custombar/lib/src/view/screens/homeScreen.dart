@@ -5,12 +5,11 @@ import 'package:custombar/src/view/components/mainPageContainer.dart';
 import 'package:custombar/src/view/screens/randomDataScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../controller/randomResultScreenController.dart';
+
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     RandomResultScreenController randomResultScreenController =
@@ -44,11 +43,30 @@ class HomeScreen extends StatelessWidget {
                             double.parse(controllerlamda.text.toString());
                         randomResultScreenController.meanService.value =
                             double.parse(controllermiu.text.toString());
+                        randomResultScreenController.servers.value = int.tryParse(controllerServers.text.toString())!;
                         // print("the value of service mean is: "+randomResultScreenController.meanService.toString());
-                        // randomResultScreenController.servers.value = int.tryParse(controllerServers.text.toString())!;
-                        // randomResultScreenController.calculateUpdatedArrivalTimes();
                         randomResultScreenController
                             .calculateProbablityUsingPoisson();
+
+                        randomResultScreenController.interArrivalTimeCalculator();
+                        randomResultScreenController.calculateArrivalList();
+                        randomResultScreenController.serviceTimeCalculator();
+                        if(randomResultScreenController.servers.value == 1){
+                          randomResultScreenController.calculateUpdatedArrivalTimes();
+                          randomResultScreenController.calculateTurnAroundTimeforSingle();
+                          randomResultScreenController.calculateWaitTime();
+                          randomResultScreenController.calculateResponseTime();
+                          randomResultScreenController.initializeGantChart();
+                        }
+                        if(randomResultScreenController.servers.value == 2){
+                          randomResultScreenController.calculateStartAndEndTime();
+                          randomResultScreenController.calculateTurnAroundTimeforDouble();
+                          randomResultScreenController.calculateWaitTime();
+                          randomResultScreenController.calculateResponseTime();
+                          randomResultScreenController.initializeGantChart();
+                        }
+                        print(randomResultScreenController.endTimeList);
+                        print(randomResultScreenController.arrivalList);
                         Get.to(const RandomDataScreen());
                       },
                     ));

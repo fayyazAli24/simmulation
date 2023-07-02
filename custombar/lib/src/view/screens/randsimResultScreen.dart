@@ -4,13 +4,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class RandsimScreen extends StatelessWidget {
+
   const RandsimScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     RandomResultScreenController randomResultScreenController =
         Get.put(RandomResultScreenController());
 
-    return SingleChildScrollView(
+    return
+      SingleChildScrollView(
       child: DataTable(
         columns: const [
           DataColumn(label: Text("StartTime")),
@@ -23,7 +26,8 @@ class RandsimScreen extends StatelessWidget {
           for (int i = 0; i <10; i++)
             DataRow(cells: [
               DataCell(Text(randomResultScreenController.startTimeList[i].toString())),
-              DataCell(Text(randomResultScreenController.endTimeList[i].toString())),
+              DataCell(randomResultScreenController.servers.value==2?Text(randomResultScreenController.endTimeList[i].toString()):
+              Text(randomResultScreenController.endTimeList[i+1].toString())),
               DataCell(Text(randomResultScreenController.turnAroundTimeList[i].toString())),
               DataCell(Text(randomResultScreenController.waitTimeList[i].toString())),
               DataCell(Text(randomResultScreenController.responseTimeList[i].toString())),

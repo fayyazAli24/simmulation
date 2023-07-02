@@ -20,173 +20,192 @@ class GraphicalResultScreen extends StatelessWidget {
     ChartController chartController = Get.put(ChartController());
     RandomResultScreenController randomResultScreenController =
         Get.put(RandomResultScreenController());
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 4.h,
-          ),
-          Center(
-              child: Text(
-            "Graphical illustration of Data",
-            style: TextStyle(fontSize: 16.sp),
-          )),
-          SizedBox(
-            height: 3.h,
-          ),
-          Center(child: GraphName(graphName: "GantChart ")),
-          SizedBox(
-            height: 3.h,
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(left: 6.5.w),
-              child: MultiServerGanttChart(customers: chartController.customers)
+    return GetBuilder(
+        init: randomResultScreenController,
+        builder: (_) {
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 4.h,
+                ),
+                Center(
+                    child: Text(
+                  "Graphical illustration of Data",
+                  style: TextStyle(fontSize: 16.sp),
+                )),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Center(child: GraphName(graphName: "GantChart ")),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Center(
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 6.5.w),
+                      child: randomResultScreenController.servers.value == 2
+                          ? MultiServerGanttChart(
+                              customers:
+                                  randomResultScreenController.gantChartData)
+                          : SingleServerGanttChart(
+                              customers:
+                                  randomResultScreenController.gantChartData)),
+                ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.w),
+                          child: GraphName(
+                            graphName: "customer time distribution",
+                          ),
+                        ),
+                        Container(
+                          // height: 40.h,
+                          child: PieChart(
+                            chartRadius: 200,
+                            dataMap: chartController.dataMap,
+                            legendOptions: LegendOptions(
+                                legendPosition: LegendPosition.right),
+                            chartValuesOptions: ChartValuesOptions(
+                                showChartValuesInPercentage: true),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        GraphName(graphName: "ST & ET"),
+                        SizedBox(height: 3.h),
+                        Container(
+                          width: 65.w,
+                          height: 60.h,
+                          child: CustomLineChart(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        GraphName(graphName: "Interarrival time"),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 30.w,
+                          child: MyBarGraph(
+                            data: chartController.barData,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        GraphName(graphName: "arrival time"),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 30.w,
+                          child: MyBarGraph(
+                            data: chartController.barData,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        GraphName(graphName: "service time"),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 30.w,
+                          child: MyBarGraph(
+                            data: chartController.barData,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Center(
+                  child: Text(
+                    "Statistical analysis of data",
+                    style: TextStyle(fontSize: 16.sp),
+                  ),
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    StatsResult(
+                        parameter: "Avg Turn around time",
+                        time: 2,
+                        color: Colors.black),
+                    StatsResult(
+                        parameter: "Avg Wait time",
+                        time: 2,
+                        color: Colors.blue),
+                    StatsResult(
+                        parameter: "Avg Service time",
+                        time: 2,
+                        color: Colors.red),
+                    StatsResult(
+                        parameter: "Avg Inter Arrival time",
+                        time: 2,
+                        color: Colors.green)
+                  ],
+                ),
+                SizedBox(height: 3.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    StatsResult(
+                        parameter: "Avg Wait Time",
+                        time: 2,
+                        color: Colors.black),
+                    StatsResult(
+                        parameter: "Server1 Idle Time",
+                        time: 2,
+                        color: Colors.black),
+                    StatsResult(
+                        parameter: "Server 1 Utilization Time",
+                        time: 2,
+                        color: Colors.green),
+                    StatsResult(
+                        parameter: "Server 2 Idle",
+                        time: 2,
+                        color: Colors.black),
+                    StatsResult(
+                        parameter: "Server 2 Utilization Time",
+                        time: 2,
+                        color: Colors.green)
+                  ],
+                ),
+                SizedBox(height: 2.h),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 4.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 8.w),
-                    child: GraphName(
-                      graphName: "customer time distribution",
-                    ),
-                  ),
-                  Container(
-                    // height: 40.h,
-                    child: PieChart(
-                      chartRadius: 200,
-                      dataMap: chartController.dataMap,
-                      legendOptions:
-                          LegendOptions(legendPosition: LegendPosition.right),
-                      chartValuesOptions:
-                          ChartValuesOptions(showChartValuesInPercentage: true),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  GraphName(graphName: "ST & ET"),
-                  SizedBox(height: 3.h),
-                  Container(
-                    width: 65.w,
-                    height: 60.h,
-                    child: CustomLineChart(),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 4.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  GraphName(graphName: "Interarrival time"),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Container(
-                    height: 40.h,
-                    width: 30.w,
-                    child: MyBarGraph(
-                      data: chartController.barData,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  GraphName(graphName: "arrival time"),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Container(
-                    height: 40.h,
-                    width: 30.w,
-                    child: MyBarGraph(
-                      data: chartController.barData,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  GraphName(graphName: "service time"),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Container(
-                    height: 40.h,
-                    width: 30.w,
-                    child: MyBarGraph(
-                      data: chartController.barData,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Center(
-            child: Text(
-              "Statistical analysis of data",
-              style: TextStyle(fontSize: 16.sp),
-            ),
-          ),
-          SizedBox(
-            height: 3.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              StatsResult(
-                  parameter: "Avg Turn around time",
-                  time: 2,
-                  color: Colors.black),
-              StatsResult(
-                  parameter: "Avg Wait time", time: 2, color: Colors.blue),
-              StatsResult(
-                  parameter: "Avg Service time", time: 2, color: Colors.red),
-              StatsResult(
-                  parameter: "Avg Inter Arrival time",
-                  time: 2,
-                  color: Colors.green)
-            ],
-          ),
-          SizedBox(height: 3.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              StatsResult(
-                  parameter: "Avg Wait Time", time: 2, color: Colors.black),
-              StatsResult(
-                  parameter: "Server1 Idle Time", time: 2, color: Colors.black),
-              StatsResult(
-                  parameter: "Server 1 Utilization Time",
-                  time: 2,
-                  color: Colors.green),
-              StatsResult(
-                  parameter: "Server 2 Idle", time: 2, color: Colors.black),
-              StatsResult(
-                  parameter: "Server 2 Utilization Time",
-                  time: 2,
-                  color: Colors.green)
-            ],
-          ),
-          SizedBox(height: 2.h),
-        ],
-      ),
-    );
+          );
+        });
   }
 }
