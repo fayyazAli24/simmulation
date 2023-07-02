@@ -68,10 +68,11 @@ class MultiServerGanttChart extends StatelessWidget {
           return Container(
             width: 60,
             margin: const EdgeInsets.all(2),
-            color: (customer.server == 1) ? Colors.blue : Colors.green,
+            color: (customer.server == 1) ? Colors.blue : Colors.teal,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 Padding(
                   padding: EdgeInsets.all(2),
                   child: Text(

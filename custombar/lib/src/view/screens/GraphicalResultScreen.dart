@@ -27,7 +27,7 @@ class GraphicalResultScreen extends StatelessWidget {
         builder: (_) {
           return SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 4.h,
@@ -46,7 +46,7 @@ class GraphicalResultScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Padding(
-                      padding: EdgeInsets.only(left: 6.5.w),
+                      padding: EdgeInsets.only(left: 28.w),
                       child: randomResultScreenController.servers.value == 2
                           ? MultiServerGanttChart(
                               customers:
