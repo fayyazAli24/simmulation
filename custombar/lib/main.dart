@@ -1,5 +1,6 @@
 import 'package:custombar/src/cores/routes/appRoutes.dart';
 import 'package:custombar/src/cores/routes/routeNames.dart';
+import 'package:custombar/src/view/screens/SplashScreen/SplashScreen.dart';
 import 'package:custombar/src/view/screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,9 +20,9 @@ class MyApp extends StatelessWidget {
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteNames.homeScreen,
+        initialRoute: RouteNames.splashScreen,
         getPages: AppRoutes.routes,
-        home:  HomeScreen(),
+        home:  SplashScreen(),
       );
     });
   }
