@@ -5,13 +5,13 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'customInputField.dart';
 import 'dialogButton.dart';
 
-class MGSdefaultDialog extends StatelessWidget {
+class MGSdefaultDialogUniform extends StatelessWidget {
   var tap;
   var controller1;
   var controller2;
   var controller3;
   var controller4;
-  MGSdefaultDialog(
+  MGSdefaultDialogUniform(
       {Key? key,
       required this.tap,
       required this.controller1,

@@ -2,8 +2,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class CustomLineChart extends StatelessWidget {
-   CustomLineChart({Key? key}) : super(key: key);
+  List<FlSpot> list1;
+  List<FlSpot> list2;
+  double max;
 
+  CustomLineChart({Key? key, required this.list1,required this.list2,required this.max}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return LineChart(
@@ -11,31 +14,17 @@ class CustomLineChart extends StatelessWidget {
         minX: 0,
         maxX: 10,
         minY: 0,
-        maxY: 20,
+        maxY: max,
         lineBarsData: [
           LineChartBarData(
-            spots: [
-               FlSpot(1,4),
-              FlSpot(2,2),
-              FlSpot(3,3),
-              FlSpot(4,8),
-              FlSpot(5,6),
-              FlSpot(6,4),
-            ],color: Color(0xffFF0000)
+            spots:list1
+            ,color: Color(0xffFF0000)
           ),
           LineChartBarData(
-            spots: [
-               FlSpot(1,5),
-              FlSpot(2,2),
-              FlSpot(3,3),
-              FlSpot(4,6),
-              FlSpot(5,7),
-              FlSpot(6,4),
-            ],color:const Color(0xff008080)
+            spots: list2
+              ,color:const Color(0xff008080)
           ),
-        ],titlesData: FlTitlesData(
-
-      )
+        ]
       )
     );
   }

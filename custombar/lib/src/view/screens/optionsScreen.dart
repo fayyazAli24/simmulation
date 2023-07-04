@@ -27,9 +27,11 @@ class OptionScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+
             InkWell(
               child: CommonOptionButton(buttonName: "M/M/S"),
               onTap: () {
+                randomResultScreenController.MainOptions.value =1;
                 Get.defaultDialog(
                     title: 'M/M/Servers(s)',
                     content: DialogBoxContainer(
@@ -45,11 +47,18 @@ class OptionScreen extends StatelessWidget {
                             int.tryParse(controllerServers.text.toString())!;
                         randomResultScreenController
                             .calculateProbablityUsingPoisson();
-
+                        print("the arrival mean is "+randomResultScreenController.mean.value.toString());
+                        print("the service mean is "+randomResultScreenController.meanService.value.toString());
+                        print("the server is "+randomResultScreenController.servers.value.toString());
+                        print("poisson list is "+randomResultScreenController.probablityList.toString());
                         randomResultScreenController
-                            .interArrivalTimeCalculator();
+                            .interArrival();
+                        print("interarrival list is "+randomResultScreenController.interArrivalList.toString());
+
                         randomResultScreenController.calculateArrivalList();
+                        print("arrival list is "+randomResultScreenController.arrivalList.toString());
                         randomResultScreenController.serviceTimeCalculator();
+                        print("service list is "+randomResultScreenController.serviceList.toString());
                         if (randomResultScreenController.servers.value == 1) {
                           randomResultScreenController
                               .calculateUpdatedArrivalTimes();
@@ -68,8 +77,15 @@ class OptionScreen extends StatelessWidget {
                           randomResultScreenController.calculateResponseTime();
                           randomResultScreenController.initializeGantChart();
                         }
-                        print(randomResultScreenController.endTimeList);
-                        print(randomResultScreenController.arrivalList);
+                        randomResultScreenController.calculateAverages();
+                        // print(randomResultScreenController.intTime);
+                        // print(randomResultScreenController.arrTime);
+                        // print(randomResultScreenController.serTime);
+                        // print(randomResultScreenController.startTime);
+                        // print(randomResultScreenController.endTime);
+                        // print(randomResultScreenController.TATtime);
+                        // print(randomResultScreenController.respTime);
+                        // print(randomResultScreenController.waitTime);
                         Get.to(const RandomDataScreen());
                       },
                     ));
@@ -80,13 +96,13 @@ class OptionScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: (){
+                randomResultScreenController.MainOptions.value =2;
                 Get.to(MGSoptions());
               },
                 child: CommonOptionButton(buttonName: "M/G/S")),
             SizedBox(
               height: 2.h,
             ),
-            CommonOptionButton(buttonName: "G/G/S"),
           ],
         ),
       ),

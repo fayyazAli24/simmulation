@@ -5,7 +5,6 @@ import '../../services/gantDataModel.dart';
 
 class SingleServerGanttChart extends StatelessWidget {
   List<Customer> customers;
-
   SingleServerGanttChart({required this.customers});
 
   @override
@@ -42,15 +41,10 @@ class SingleServerGanttChart extends StatelessWidget {
           final endOffset = startOffset + serviceTime;
 
           return Container(
-            width: serviceTime.toDouble() * 40,
+            width: 60,
             margin: EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              border: Border.all(
-                color: Colors.black,
-                width: 5
-              )
-            ),
+            decoration: const BoxDecoration(
+              color: Colors.blue,),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

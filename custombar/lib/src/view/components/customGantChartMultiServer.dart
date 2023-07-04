@@ -62,9 +62,6 @@ class MultiServerGanttChart extends StatelessWidget {
 
           final endOffset = startOffset + serviceTime;
           serviceTime+=updatedArrivalTime;
-
-
-
           return Container(
             width: 60,
             margin: const EdgeInsets.all(2),

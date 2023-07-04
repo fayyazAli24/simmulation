@@ -73,8 +73,8 @@ class GraphicalResultScreen extends StatelessWidget {
                           // height: 40.h,
                           child: PieChart(
                             chartRadius: 200,
-                            dataMap: chartController.dataMap,
-                            legendOptions: LegendOptions(
+                            dataMap: randomResultScreenController.calculatePieChart(),
+                            legendOptions: const LegendOptions(
                                 legendPosition: LegendPosition.right),
                             chartValuesOptions: ChartValuesOptions(
                                 showChartValuesInPercentage: true),
@@ -89,7 +89,8 @@ class GraphicalResultScreen extends StatelessWidget {
                         Container(
                           width: 65.w,
                           height: 60.h,
-                          child: CustomLineChart(),
+                          child: CustomLineChart(list1: randomResultScreenController.startList(),list2: randomResultScreenController.endList(),max:
+                            randomResultScreenController.MGoptions.value ==1?1000.0:60,),
                         ),
                       ],
                     ),
@@ -111,22 +112,8 @@ class GraphicalResultScreen extends StatelessWidget {
                           height: 40.h,
                           width: 30.w,
                           child: MyBarGraph(
-                            data: chartController.barData,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        GraphName(graphName: "arrival time"),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        Container(
-                          height: 40.h,
-                          width: 30.w,
-                          child: MyBarGraph(
-                            data: chartController.barData,
+                            max: randomResultScreenController.MGoptions.value ==1 ?50:15,
+                            data: randomResultScreenController.interArrivalList,
                           ),
                         ),
                       ],
@@ -141,7 +128,24 @@ class GraphicalResultScreen extends StatelessWidget {
                           height: 40.h,
                           width: 30.w,
                           child: MyBarGraph(
-                            data: chartController.barData,
+                            max: randomResultScreenController.MGoptions.value ==1 ? 100: 20,
+                            data: randomResultScreenController.serviceList,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        GraphName(graphName: "Turnaround time"),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 30.w,
+                          child: MyBarGraph(
+                            max: randomResultScreenController.MGoptions.value ==1?300:20,
+                            data: randomResultScreenController.turnAroundTimeList,
                           ),
                         ),
                       ],
@@ -162,20 +166,17 @@ class GraphicalResultScreen extends StatelessWidget {
                   children: [
                     StatsResult(
                         parameter: "Avg Turn around time",
-                        time: 2,
+                        time: randomResultScreenController.TATtime.value,
                         color: Colors.black),
                     StatsResult(
                         parameter: "Avg Wait time",
-                        time: 2,
+                        time: randomResultScreenController.waitTime.value,
                         color: Colors.blue),
                     StatsResult(
                         parameter: "Avg Service time",
-                        time: 2,
+                        time: randomResultScreenController.serTime.value,
                         color: Colors.red),
-                    StatsResult(
-                        parameter: "Avg Inter Arrival time",
-                        time: 2,
-                        color: Colors.green)
+
                   ],
                 ),
                 SizedBox(height: 3.h),
@@ -183,24 +184,14 @@ class GraphicalResultScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     StatsResult(
-                        parameter: "Avg Wait Time",
-                        time: 2,
-                        color: Colors.black),
-                    StatsResult(
-                        parameter: "Server1 Idle Time",
-                        time: 2,
-                        color: Colors.black),
-                    StatsResult(
-                        parameter: "Server 1 Utilization Time",
-                        time: 2,
-                        color: Colors.green),
-                    StatsResult(
-                        parameter: "Server 2 Idle",
-                        time: 2,
-                        color: Colors.black),
-                    StatsResult(
-                        parameter: "Server 2 Utilization Time",
-                        time: 2,
+                        parameter: "Avg start Time",
+                        time: randomResultScreenController.startTime.value,
+                        color: Colors.black),StatsResult(
+                        parameter: "Avg end Time",
+                        time: randomResultScreenController.endTime.value,
+                        color: Colors.black),StatsResult(
+                        parameter: "Avg Inter Arrival time",
+                        time: randomResultScreenController.intTime.value,
                         color: Colors.green)
                   ],
                 ),

@@ -20,7 +20,7 @@ class RandsimScreen extends StatelessWidget {
           DataColumn(label: Text("End Time")),
           DataColumn(label: Text("Turnaround time")),
           DataColumn(label: Text("wait time")),
-          DataColumn(label: Text("response time")),
+          // DataColumn(label: Text("response time")),
         ],
         rows: [
           for (int i = 0; i <10; i++)
@@ -30,7 +30,7 @@ class RandsimScreen extends StatelessWidget {
               Text(randomResultScreenController.endTimeList[i+1].toString())),
               DataCell(Text(randomResultScreenController.turnAroundTimeList[i].toString())),
               DataCell(Text(randomResultScreenController.waitTimeList[i].toString())),
-              DataCell(Text(randomResultScreenController.responseTimeList[i].toString())),
+              // DataCell(Text(randomResultScreenController.responseTimeList[i].toString())),
             ])
         ],
       ),

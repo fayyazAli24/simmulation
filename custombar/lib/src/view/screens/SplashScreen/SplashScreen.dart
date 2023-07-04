@@ -4,48 +4,41 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-
 class SplashScreen extends StatelessWidget {
-   SplashScreen({Key? key}) : super(key: key);
-  SplashController splashController=Get.put(SplashController());
+  SplashScreen({Key? key}) : super(key: key);
+  SplashController splashController = Get.put(SplashController());
   @override
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration: BoxDecoration(
-         color: Colors.white          ),
+          decoration: const BoxDecoration(color: Colors.white),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("Simmulation project ",
+                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16.sp)
+                ),
                 SizedBox(
-                  height: 0.2,
+                  height: 2.h,
                 ),
                 Text(
-                  "DR.Shaista Rais",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.merge(TextStyle(
-                      fontSize: 3.h,
+                  "Presented to DR.Shaista Raees",
+                  style: (TextStyle(
+                      fontSize: 14.sp,
                       color: Colors.blue,
-                      fontWeight: FontWeight.bold)),
+                      fontWeight: FontWeight.bold,)),
                 ),
-                SizedBox(height:20 ),
+                SizedBox(height: 20),
                 Container(
                     height: 60.h,
-                    width: 80.w
-                    ,
-                    child: Lottie.asset("assets/images/lf20_fpeqspfn.json")
-                ),
-
+                    width: 80.w,
+                    child: Lottie.asset("assets/images/lf20_fpeqspfn.json")),
                 // Container(
                 //   height: 0.13.sh,
                 //   width: 0.13.sw,
@@ -54,12 +47,9 @@ class SplashScreen extends StatelessWidget {
                 //     duration: Duration(seconds: 5),
                 //   ),
                 // )
-
               ],
             ),
           ),
-        )
-
-    );
+        ));
   }
 }

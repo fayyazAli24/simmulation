@@ -1,21 +1,15 @@
 import 'package:custombar/src/services/individualBar.dart';
 
-class BarData{
+class dataScreenBarData{
   final double first ;
   final double second ;
   final double third;
   final double fourth;
   final double fifth;
   final double sixth;
-  final double seventh;
-  final double eight ;
-  final double nineth ;
-  final double tenth;
-
-
-  BarData({
+  dataScreenBarData({
     required this.first, required this.second, required this.third, required this.fourth, required this.fifth,
-    required this.sixth, required this.seventh, required this.eight, required this.nineth, required this.tenth,
+    required this.sixth,
 
   });
 
@@ -30,10 +24,7 @@ class BarData{
       IndividualBar(x: 4, y: fourth),
       IndividualBar(x: 5, y: fifth),
       IndividualBar(x: 6, y: sixth),
-      IndividualBar(x: 7, y: seventh),
-      IndividualBar(x: 8, y:eight),
-      IndividualBar(x: 9, y: nineth),
-      IndividualBar(x: 10, y: tenth),
+
 
 
     ];

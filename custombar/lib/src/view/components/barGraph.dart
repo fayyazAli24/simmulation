@@ -4,15 +4,28 @@ import 'package:flutter/material.dart';
 
 class MyBarGraph extends StatelessWidget {
   final List data;
-  MyBarGraph({Key? key, required this.data}) : super(key: key);
+  final double max;
+  MyBarGraph({Key? key, required this.data, required this.max}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     BarData myBarData = BarData(
-        ST: data[0], ET: data[1], TAT: data[2], WT: data[3], RT: data[4]);
+      first:data[0],
+      second:data[1],
+      third:data[2],
+      fourth:data[3],
+      fifth:data[4],
+      sixth:data[5],
+      seventh:data[6],
+      eight:data[7],
+      nineth:data[8],
+      tenth:data[9],
+
+    );
+
     myBarData.initializeBarData();
     return BarChart(BarChartData(
-        maxY: 100,
+        maxY: max,
         minY: 0,
         barGroups: myBarData.barData
             .map(
@@ -22,7 +35,7 @@ class MyBarGraph extends StatelessWidget {
                   BarChartRodData(
                       toY: data.y,
                       color: Colors.teal,
-                      width: 25,
+                      width: 18,
                       borderRadius: BorderRadius.circular(4))
                 ],
               ),

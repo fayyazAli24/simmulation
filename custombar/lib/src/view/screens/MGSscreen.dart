@@ -13,10 +13,10 @@ class MGSscreen extends StatelessWidget {
       child: DataTable(
         columns: const [
           DataColumn(label: Text("S/NO")),
-          DataColumn(label: Text("Commulitave probab")),
-          DataColumn(label: Text("CP-lookup")),
+          DataColumn(label: Text("Cummulative probablity")),
+          DataColumn(label: Text("CP look-up")),
+          DataColumn(label: Text("AVG time B/W arrival")),
           DataColumn(label: Text("Interarrival time")),
-          DataColumn(label: Text("Arrival")),
           DataColumn(label: Text("arrival time")),
           DataColumn(label: Text("service time")),
         ],
@@ -31,7 +31,13 @@ class MGSscreen extends StatelessWidget {
               DataCell(Text(i.toString())),
               DataCell(Text(randomResultScreenController.interArrivalList[i].toString())),
               DataCell(Text(randomResultScreenController.arrivalList[i].toString())),
-              DataCell(Text(randomResultScreenController.serviceList[i].toString())),
+              // if(randomResultScreenController.MGoptions.value == 2)
+                DataCell(Text(randomResultScreenController.serviceList[i].toString()))
+              ,
+              // if(randomResultScreenController.MGoptions.value == 1)
+                // DataCell(Text(randomResultScreenController.uniformServiceList[i].toString())),
+              // if(randomResultScreenController.MGoptions.value == 3)
+                // DataCell(Text(randomResultScreenController.gamaServiceList[i].toString()))
             ])
         ],
       ),

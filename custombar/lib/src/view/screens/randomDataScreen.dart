@@ -1,7 +1,6 @@
 import 'package:custombar/src/controller/randomResultScreenController.dart';
 import 'package:custombar/src/view/screens/MGSscreen.dart';
 import 'package:custombar/src/view/screens/RandomResultScreen.dart';
-
 import 'package:custombar/src/view/screens/randsimResultScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,8 +44,9 @@ class RandomDataScreen extends StatelessWidget {
           ),
           body:  TabBarView(
             children: [
-              MGSscreen(),
-              const  RandsimScreen(),
+              randomResultScreenController.MainOptions.value ==1?
+               RandomResultScreen():MGSscreen(),
+              const RandsimScreen(),
               GraphicalResultScreen(),
             ],
           ),

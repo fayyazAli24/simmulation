@@ -1,7 +1,7 @@
 
-
 import 'package:custombar/src/view/components/dialogBoxContainer.dart';
 import 'package:custombar/src/view/components/mainPageContainer.dart';
+import 'package:custombar/src/view/screens/dataResultScreen.dart';
 import 'package:custombar/src/view/screens/optionsScreen.dart';
 import 'package:custombar/src/view/screens/randomDataScreen.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +34,7 @@ class HomeScreen extends StatelessWidget {
               borderColor: Colors.white,
               buttonColor: Colors.blue,
               onTap: () {
-                Get.to(OptionScreen());
-
+                Get.to(const OptionScreen());
               },
             ),
             MainPageContainer(
@@ -48,16 +47,7 @@ class HomeScreen extends StatelessWidget {
               borderColor: Colors.white,
               buttonColor: Colors.blue,
               onTap: () {
-                Get.defaultDialog(
-                  title: 'M/M/Servers(s)',
-                  content: DialogBoxContainer(
-                    tap: () {
-                      Get.to(const RandomDataScreen());
-                    },
-                    controller1: controllerlamda,
-                    controller2: controllermiu,
-                    controller3: controllerServers,
-                  ),
+                Get.to(DataResultScreen()
                 );
               },
             ),
