@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class CustomLineChartDataScreen extends StatelessWidget {
   List<FlSpot> list1;
-   CustomLineChartDataScreen({Key? key,required this.list1}) : super(key: key);
+  double max;
+   CustomLineChartDataScreen({Key? key,required this.list1, this.max=20}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class CustomLineChartDataScreen extends StatelessWidget {
             minX: 0,
             maxX: 130,
             minY: 0,
-            maxY: 20,
+            maxY: max,
             lineBarsData: [
               LineChartBarData(
                   spots:list1

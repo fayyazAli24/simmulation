@@ -10,8 +10,11 @@ class DialogBoxButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 7.h,
-      width: 40.w,
-      color: Colors.blue,
+      width: 25.w,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(20)
+      ),
       child: Center(child: Text("Simmulate",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16.sp),)),
     );
   }

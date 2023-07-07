@@ -20,7 +20,7 @@ class DialogBoxContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 60.w,
+        width: 40.w,
         height: 55.h,
         child: Column(children: [
           const Text(

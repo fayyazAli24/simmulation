@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               text1: "It requires arrival and service mean values",
               text2: "It generates random poisson arrivals and exponential",
               text3: "services & estimates each componenet of system",
-              buttonText: "RANDOM",
+              buttonText: "SIMMULATE",
               colors: Colors.blue,
               textColors: Colors.white,
               borderColor: Colors.white,
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             MainPageContainer(
-              text1: "It requires arrival and service mean values",
+              text1: "The calculation on excel data is represented here",
               text2: "It generates dashboard of the collected data",
               text3: "and gives graphical representation of the data",
               buttonText: "Data",

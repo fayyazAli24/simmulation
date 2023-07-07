@@ -11,8 +11,8 @@ class MainScreenButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 10.w,
-      height: 8.h,
+      width: 14.w,
+      height: 10.h,
       decoration: BoxDecoration(
         color: buttonColor,
           border:Border.all(

@@ -7,7 +7,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
   SplashController splashController = Get.put(SplashController());
-  @override
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

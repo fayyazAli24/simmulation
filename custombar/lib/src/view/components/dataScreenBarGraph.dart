@@ -25,7 +25,8 @@ class DataScreenBarGraph extends StatelessWidget {
         maxY: max,
         minY: 0,
         titlesData: FlTitlesData(
-          show: false
+          show: false,
+
         ),
         barGroups: myBarData.barData
             .map(

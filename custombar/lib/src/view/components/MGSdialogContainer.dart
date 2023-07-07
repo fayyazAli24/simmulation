@@ -22,7 +22,7 @@ class MGSdefaultDialogUniform extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Container(
-        width: 60.w,
+        width: 40.w,
         height: 70.h,
         child: Column(children: [
           const Text(

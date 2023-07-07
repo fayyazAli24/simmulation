@@ -14,6 +14,15 @@ class ChartController extends GetxController{
   ].obs;
 
 
+  RxMap<String, double> dataMapPoisson = {
+    "0-20": 0.0,
+    "20-40": 0.0068,
+    "40-60": 0.6042,
+    "60-80": 0.3860,
+    "80-100": 0.0031,
+    "100-120": 0.0,
+  }.obs;
+
   RxMap<String, double> dataMap = {
     "60-70": 3.2,
     "70-80": 0.048389527,
@@ -23,8 +32,14 @@ class ChartController extends GetxController{
     "110-120": 0.020893663,
   }.obs;
 
+
+
   List<int> barData = [35,46,31,33,41,33];
+
   List<double> barData2 = [0.3458,2.2987,1.6798,0.2589,3.2589,1.5897];
+
+
+  List<double> barDataPoisson = [1.27895,0.42786,3.4789,2.78986,0.24789,0.789643];
 
   List<FlSpot> lineChartData =[
     FlSpot(70,11.8554),
@@ -33,7 +48,15 @@ class ChartController extends GetxController{
     FlSpot(100,8.4675),
     FlSpot(110,7.5689),
     FlSpot(120,6.7657),
+  ];
 
+  List<FlSpot> lineChartDataPoisson =[
+    FlSpot(20,0.0),
+    FlSpot(40,1.481),
+    FlSpot(60,132.312),
+    FlSpot(80,84.535),
+    FlSpot(100,0.672),
+    FlSpot(120,0.0),
   ];
 
 }

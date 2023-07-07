@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class SplashController extends GetxController{
 
   splashMethod() {
-    Timer(Duration(seconds: 6), () {
+    Timer(Duration(seconds: 4), () {
       Get.offAndToNamed(AppRoutes.homeScreen);
     });
   }

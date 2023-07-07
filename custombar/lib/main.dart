@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return GetMaterialApp(
-
         debugShowCheckedModeBanner: false,
         initialRoute: RouteNames.splashScreen,
         getPages: AppRoutes.routes,

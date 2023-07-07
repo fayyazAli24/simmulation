@@ -31,6 +31,7 @@ class MGSoptions extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Choose the service time distribution",style: TextStyle(color: Colors.white,fontSize: 14.sp),),
+            SizedBox(height: 1.h,),
             InkWell(
               onTap: (){
                 randomResultScreenController.MGoptions.value = 1;
