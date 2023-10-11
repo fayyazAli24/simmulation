@@ -10,7 +10,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 // import 'package:flutter_voip_kit/screens/splash_screen.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

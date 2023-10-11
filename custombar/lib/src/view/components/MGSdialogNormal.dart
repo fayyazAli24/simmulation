@@ -22,7 +22,7 @@ class MGSDialogNormal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 40.w,
+        width: 50.w,
         height:70.h,
         child: Column(children: [
           const Text(

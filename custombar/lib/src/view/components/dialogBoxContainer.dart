@@ -9,12 +9,17 @@ class DialogBoxContainer extends StatelessWidget {
   var controller1;
   var controller2;
   var controller3;
+  var controller4;
+  var isPriority;
+
   DialogBoxContainer(
       {Key? key,
       required this.tap,
       required this.controller1,
       required this.controller2,
-      required this.controller3})
+      required this.controller3,
+      required this.controller4,
+      this.isPriority = false})
       : super(key: key);
 
   @override
@@ -51,6 +56,14 @@ class DialogBoxContainer extends StatelessWidget {
             height: 1.h,
           ),
           CustomInputField(controller: controller3),
+
+          Text("Enter the number of customers",
+              style: TextStyle(color: Colors.blue)),
+          SizedBox(
+            height: 1.h,
+          ),
+          CustomInputField(controller: controller4),
+
           SizedBox(height: 2.h),
           InkWell(onTap: tap, child: DialogBoxButton())
         ]));

@@ -5,17 +5,15 @@ import 'package:get/get_core/src/get_main.dart';
 
 class RandomResultScreen extends StatelessWidget {
   RandomResultScreen({Key? key}) : super(key: key);
-  RandomResultScreenController randomResultScreenController =
-      Get.put(RandomResultScreenController());
 
-  @override
-  var list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   @override
   Widget build(BuildContext context) {
+    RandomResultScreenController randomResultScreenController =
+    Get.put(RandomResultScreenController());
     return SingleChildScrollView(
       child: DataTable(
-        columns: const [
+        columns:  [
           DataColumn(label: Text("S/NO")),
           DataColumn(label: Text("Cummulative probablity")),
           DataColumn(label: Text("CP look-up")),
@@ -23,11 +21,13 @@ class RandomResultScreen extends StatelessWidget {
           DataColumn(label: Text("Interarrival time")),
           DataColumn(label: Text("arrival time")),
           DataColumn(label: Text("service time")),
+          if(randomResultScreenController.isPriority.value == true)
+            DataColumn(label: Text("priority")),
         ],
         rows: [
-          for (int i = 0; i < 10; i++)
+          for (int i = 0; i < randomResultScreenController.customerNumber.value; i++)
             DataRow(cells: [
-              DataCell(Text(list[i].toString())),
+              DataCell(Text((i+1).toString())),
               DataCell(Text(randomResultScreenController.probablityList[i]
                   .toStringAsFixed(4).toString())),
               DataCell(i==0?Text(i.toString()):Text(randomResultScreenController.probablityList[i-1]
@@ -37,6 +37,8 @@ class RandomResultScreen extends StatelessWidget {
               DataCell(Text(randomResultScreenController.arrivalList[i].toString())),
               DataCell(Text(randomResultScreenController.serviceList[i].toString())),
 
+              if(randomResultScreenController.isPriority.value == true)
+                DataCell(Text(randomResultScreenController.priorityList[i].toString())),
 
             ])
         ],

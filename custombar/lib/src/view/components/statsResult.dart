@@ -3,7 +3,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class StatsResult extends StatelessWidget {
   final String parameter;
-  final double time;
+  final String time;
   var color;
    StatsResult({Key? key, required this.parameter, required this.time,required this.color}) : super(key: key);
 

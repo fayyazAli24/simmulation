@@ -1,5 +1,8 @@
+import 'package:custombar/src/controller/randomResultScreenController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../services/gantDataModel.dart';
 
@@ -10,6 +13,7 @@ class SingleServerGanttChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int serverCompletionTime = 0;
+    RandomResultScreenController controller = Get.put(RandomResultScreenController());
 
     return Container(
       height: 100,
@@ -20,6 +24,7 @@ class SingleServerGanttChart extends StatelessWidget {
           final customer = customers[index];
           final arrivalTime = customer.arrivalTime;
           final serviceTime = customer.serviceTime;
+          var priority = controller.priorityList[index];
 
           // Assign customer to the available server
           if (serverCompletionTime <= arrivalTime) {
@@ -59,12 +64,13 @@ class SingleServerGanttChart extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 2),
                     color: Colors.white,
+                    child: Center(child: Text(customers[index].id.toString())),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(2),
                   child: Text(
-                    'Svc: $serviceTime',
+                    'Svc: $serverCompletionTime',
                     style: TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 ),

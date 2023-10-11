@@ -16,7 +16,7 @@ class RandomDataScreen extends StatelessWidget {
 
     RandomResultScreenController randomResultScreenController = Get.put(RandomResultScreenController());
     return DefaultTabController(
-        length: 3,
+        length: 1,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.teal,
@@ -29,16 +29,16 @@ class RandomDataScreen extends StatelessWidget {
                   ),
                   text: "Random Data",
                 ),
-                Tab(
-                    icon: Icon(Icons.data_array, color: Colors.white),
-                    text: "Randsim Data"),
-                Tab(
-                  icon: Icon(
-                    Icons.data_array,
-                    color: Colors.white,
-                  ),
-                  text: "Graphical view",
-                ),
+                // Tab(
+                //     icon: Icon(Icons.data_array, color: Colors.white),
+                //     text: "Randsim Data"),
+                // Tab(
+                //   icon: Icon(
+                //     Icons.data_array,
+                //     color: Colors.white,
+                //   ),
+                //   text: "Graphical view",
+                // ),
               ],
             ),
           ),
@@ -46,8 +46,8 @@ class RandomDataScreen extends StatelessWidget {
             children: [
               randomResultScreenController.MainOptions.value ==1?
                RandomResultScreen():MGSscreen(),
-              const RandsimScreen(),
-              GraphicalResultScreen(),
+              // const RandsimScreen(),
+              // GraphicalResultScreen(),
             ],
           ),
         ));

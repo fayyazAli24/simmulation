@@ -1,5 +1,8 @@
+import 'package:custombar/src/controller/randomResultScreenController.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class CustomLineChart extends StatelessWidget {
   List<FlSpot> list1;
@@ -9,10 +12,11 @@ class CustomLineChart extends StatelessWidget {
   CustomLineChart({Key? key, required this.list1,required this.list2,required this.max}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    RandomResultScreenController randomResultScreenController = Get.put(RandomResultScreenController());
     return LineChart(
       LineChartData(
         minX: 0,
-        maxX: 10,
+        maxX: double.tryParse(randomResultScreenController.customerNumber.value.toString()),
         minY: 0,
         maxY: max,
         lineBarsData: [

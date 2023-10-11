@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'dart:math';
 
 import '../services/gantDataModel.dart';
@@ -21,7 +22,7 @@ class RandomResultScreenController extends GetxController {
   RxDouble meanService = 0.0.obs;
   RxList<double> probablityList = RxList<double>();
   RxList<int> interArrivalList = [0].obs;
-  RxList<double> lookupProbablity = [0.0].obs;
+  var lookupProbablity = [].obs;
   RxList<int> arrivalList = [0].obs;
   var serviceList = [0].obs;
   RxList<int> startTimeList = [0].obs;
@@ -40,54 +41,90 @@ class RandomResultScreenController extends GetxController {
   var TATtime=0.0.obs;
   var waitTime = 0.0.obs;
   var respTime = 0.0.obs;
+  var customerNumber = 0.obs;
+  RxBool isPriority= false.obs;
+  var priorityList = [].obs;
+
+  var Z = 0.0;
+  var A =0.0;
+  // var B = 1.obs;
+  var M = 0.0;
+  var C = 0.0;
+  var a = 0.0;
+  var b = 0.0;
+
+
 
 
   void calculateProbablityUsingPoisson() {
     var list = <double>[];
     var probablity = 0.0;
-    for (int x = 0; x < 10; x++) {
+    for (int x = 0; x < customerNumber.value; x++) {
       probablity += (exp(-mean.value) * pow(mean.value, x)) / factorial(x);
       list.add(probablity);
+      probablityList.add(probablity);
+      lookupProbablity.add(probablity);
     }
-    probablityList.value = list;
-    lookupProbablity.value = list;
   }
 
-  void interArrivalTimeCalculator() {
-    List<int> list = [];
-    var random = Random();
-    for (int i = 0; i < 10; i++) {
-      var randomNumbers = random.nextInt(5) + 1;
-      list.add(randomNumbers);
+
+  void generatePriority(){
+    Random random = Random();
+    var priorities =[];
+    for(int i=0; i<customerNumber.value; i++){
+      var temp = random.nextInt(4);
+      if(temp == 0){
+        temp++;
+      }
+      priorities.add(temp);
     }
-    interArrivalList.value = list;
-    interArrivalList.insert(0, 0);
+    priorityList.value = priorities;
+  }
+
+  void generatePriorityCorrect(){
+    var list = [];
+    var listR =[];
+    var temp = [];
+    var randomNumber = 0.0;
+    for(int i=0;i<customerNumber.value ; i++){
+      Z = (A * Z+C) % M;
+      randomNumber = Z / M;
+      list.add(Z);
+      listR.add(randomNumber);
+      var priority = ((b-a)*(randomNumber+a));
+      if(int.parse(priority.toString().substring(2)) > 5) {
+        temp.add(priority.ceil());
+        priorityList.add(priority);
+      }else if(int.parse(priority.toString().substring(2)) <= 5){
+        temp.add(priority);
+        priorityList.add(priority.floor());
+      }
+    }
+    print(priorityList);
   }
 
   void calculateArrivalList() {
     List<int> list = [];
     var result;
-
     for (int i = 1; i < interArrivalList.length; i++) {
       // list[0]=0;
       if (i == 1) {
         result = interArrivalList[i];
         // print("result in if : " + list.toString());
         list.add(result);
+        arrivalList.add(result);
       } else {
-        result = interArrivalList[i] + list[i - 2];
+        result = interArrivalList[i] + interArrivalList[i - 1];
         list.add(result);
-        // print("result in else : " + list.toString());
+        arrivalList.add(result);
       }
     }
-    arrivalList.value = list;
-    arrivalList.insert(0, 0);
   }
 
   void serviceTimeCalculator() {
     Random random = Random();
     List<int> calculatedServiceTimeList = [];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < customerNumber.value; i++) {
       double randomNumber = random.nextDouble();
       while (randomNumber == 0 && randomNumber == 1) {
         randomNumber = random.nextDouble();
@@ -103,7 +140,7 @@ class RandomResultScreenController extends GetxController {
     List<int> startTime = [];
     int serverCompletionTime = 0;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < customerNumber.value; i++) {
       final arrivalTime = arrivalList[i];
       final serviceTime = serviceList[i];
       // Calculate the updated arrival time before incrementing
@@ -114,8 +151,7 @@ class RandomResultScreenController extends GetxController {
       startTime.add(updatedArrivalTime);
       // Update the server completion time
       serverCompletionTime = updatedArrivalTime + serviceTime + 1;
-      // print(
-      //     "server completion time :${serverCompletionTime}updated ${updatedArrivalTime}service $serviceTime");
+
     }
     startTime.add(serverCompletionTime);
     startTimeList.value = startTime;
@@ -125,7 +161,7 @@ class RandomResultScreenController extends GetxController {
   void calculateTurnAroundTimeforSingle() {
     List<int> tempList = [];
     var result = 0;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < customerNumber.value; i++) {
       result = endTimeList[i+1] - arrivalList[i];
       tempList.add(result);
     }
@@ -135,7 +171,7 @@ class RandomResultScreenController extends GetxController {
   void calculateTurnAroundTimeforDouble() {
     List<int> tempList = [];
     var result = 0;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < customerNumber.value; i++) {
       result = endTimeList[i] - arrivalList[i];
       tempList.add(result);
     }
@@ -145,7 +181,7 @@ class RandomResultScreenController extends GetxController {
   void calculateWaitTime() {
     List<int> tempList = [];
     var result = 0;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < customerNumber.value; i++) {
       result = turnAroundTimeList[i] - serviceList[i];
       tempList.add(result);
     }
@@ -154,7 +190,7 @@ class RandomResultScreenController extends GetxController {
 
   void calculateResponseTime() {
     List<int> tempList = [];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < customerNumber.value; i++) {
       var result = startTimeList[i] - arrivalList[i];
       tempList.add(result);
     }
@@ -171,11 +207,11 @@ class RandomResultScreenController extends GetxController {
 
   void calculateStartAndEndTime (){
     List<int> prevEnd = [0, 0];
-    List<int> startTimeArr = List.filled(11, 0);
-    List<int> endTimeArr = List.filled(11, 0);
+    List<int> startTimeArr = List.filled(customerNumber.value, 0);
+    List<int> endTimeArr = List.filled(customerNumber.value, 0);
 
     // Loop through each task
-    for (int j = 0; j < 10; j++) {
+    for (int j = 0; j < customerNumber.value; j++) {
       int minValue = prevEnd.reduce((a, b) => a < b ? a : b);
       int index = prevEnd.indexOf(minValue);
 
@@ -202,8 +238,8 @@ class RandomResultScreenController extends GetxController {
 
   void initializeGantChart(){
     List<Customer> list=[];
-    for (int i=0;i<10;i++){
-      list.add(Customer( serviceList[i],arrivalList[i], 0, 0));
+    for (int i=0;i<customerNumber.value;i++){
+      list.add(Customer( serviceList[i],arrivalList[i], 0, 0,i+1));
     }
     gantChartData = list;
     update();
@@ -213,7 +249,7 @@ class RandomResultScreenController extends GetxController {
     List<int> list =[];
     var number;
     Random random = Random();
-    for(int i=0;i<10;i++){
+    for(int i=0;i<customerNumber.value;i++){
       number = upperLimit.value + random.nextInt(upperLimit.value-lowerLimit.value);
       list.add(number);
     }
@@ -224,7 +260,7 @@ class RandomResultScreenController extends GetxController {
   void normalServiceTime(){
     var random=Random();
     List<int> randomNumbers=[];
-    for(int i=0;i<11;i++){
+    for(int i=0;i<customerNumber.value;i++){
       var randomNumber = -1.0;
       while(randomNumber<0){
         var u1 = 1.0 - random.nextDouble();
@@ -282,25 +318,29 @@ class RandomResultScreenController extends GetxController {
 
     serviceList.value = randomNumberList;
   }
+
   void interArrival(){
     Random random = Random();
     var lookup=[];
     var number ;
     List<int> intArr=[];
-    for(int i=0;i<10;i++){
+    for(int i=0;i<customerNumber.value;i++){
       if(i==0){
         lookup.add(0);
       }else{
         lookup.add(probablityList[i-1]);
       }
     }
-    print("cp lookup is "+ lookup.toString());
 
-    for(int i=0;i<10;i++){
+    lookupProbablity.value = lookup;
+
+
+    for(int i=0;i<customerNumber.value;i++){
       number = random.nextDouble();
-      for(int j=1;j<10;j++){
-        if(number> lookup[j] && number < probablityList[j]) {
+      for(int j=1;j<customerNumber.value;j++){
+        if(number > lookup[j] && number < probablityList[j]) {
           intArr.add(j);
+          print(number);
         }
         }
       }
@@ -321,7 +361,7 @@ class RandomResultScreenController extends GetxController {
     // Check the length of the lists or use a fixed size if applicable
 
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < customerNumber.value; i++) {
       averageIntTime += (interArrivalList[i]);
       averageArrTime += arrivalList[i];
       averageServiceTime += serviceList[i];
@@ -333,14 +373,14 @@ class RandomResultScreenController extends GetxController {
     }
 
     // Calculate the averages based on the actual number of elements
-    var intTime1 = averageIntTime / 10;
-    var arrTime2 = averageArrTime / 10;
-    var serTime3 = averageServiceTime / 10;
-    var tatTime4 = averageTATtime / 10;
-    var startTime5 = averageStartTime / 10;
-    var endTime6 = averageEndTime / 10;
-    var waitTime7 = averageWaitTime / 10;
-    var respTime8 = averageRespTime / 10;
+    var intTime1 = averageIntTime / customerNumber.value;
+    var arrTime2 = averageArrTime / customerNumber.value;
+    var serTime3 = averageServiceTime / customerNumber.value;
+    var tatTime4 = averageTATtime / customerNumber.value;
+    var startTime5 = averageStartTime / customerNumber.value;
+    var endTime6 = averageEndTime / customerNumber.value;
+    var waitTime7 = averageWaitTime / customerNumber.value;
+    var respTime8 = averageRespTime / customerNumber.value;
 
     // Assign the calculated averages to the appropriate variables
     intTime.value = intTime1;
@@ -352,7 +392,8 @@ class RandomResultScreenController extends GetxController {
     waitTime.value = waitTime7;
     respTime.value = respTime8;
   }
-   Map<String,double> calculatePieChart(){
+
+  Map<String,double> calculatePieChart(){
      Map <String, double> dataMap = {
       "avg TAT": TATtime.value,
       "avg ST":   startTime.value,
@@ -365,19 +406,21 @@ class RandomResultScreenController extends GetxController {
      return dataMap;
 
   }
+
   List<FlSpot> startList(){
     List<FlSpot> waitTimeData = [];
     var spot;
-    for(int i=0;i<10;i++){
+    for(int i=0;i<customerNumber.value;i++){
       spot = FlSpot(i+1,startTimeList[i] as double );
       waitTimeData.add(spot);
     }
     return waitTimeData;
   }
+
   List<FlSpot> endList(){
     List<FlSpot> waitTimeData = [];
     var spot;
-    for(int i=0;i<10;i++){
+    for(int i=0;i<customerNumber.value;i++){
       spot = FlSpot(i+1,endTimeList[i] as double );
       waitTimeData.add(spot);
     }

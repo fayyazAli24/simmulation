@@ -46,7 +46,7 @@ class GraphicalResultScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Padding(
-                      padding: EdgeInsets.only(left: 28.w),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: randomResultScreenController.servers.value == 2
                           ? MultiServerGanttChart(
                               customers:
@@ -166,15 +166,15 @@ class GraphicalResultScreen extends StatelessWidget {
                   children: [
                     StatsResult(
                         parameter: "Avg Turn around time",
-                        time: randomResultScreenController.TATtime.value,
+                        time: randomResultScreenController.TATtime.value.toStringAsFixed(3),
                         color: Colors.black),
                     StatsResult(
                         parameter: "Avg Wait time",
-                        time: randomResultScreenController.waitTime.value,
+                        time: randomResultScreenController.waitTime.value.toStringAsFixed(3),
                         color: Colors.blue),
                     StatsResult(
                         parameter: "Avg Service time",
-                        time: randomResultScreenController.serTime.value,
+                        time: randomResultScreenController.serTime.value.toStringAsFixed(3),
                         color: Colors.red),
 
                   ],
@@ -185,13 +185,13 @@ class GraphicalResultScreen extends StatelessWidget {
                   children: [
                     StatsResult(
                         parameter: "Avg start Time",
-                        time: randomResultScreenController.startTime.value,
+                        time: randomResultScreenController.startTime.value.toStringAsFixed(3),
                         color: Colors.black),StatsResult(
                         parameter: "Avg end Time",
-                        time: randomResultScreenController.endTime.value,
+                        time: randomResultScreenController.endTime.value.toStringAsFixed(3),
                         color: Colors.black),StatsResult(
                         parameter: "Avg Inter Arrival time",
-                        time: randomResultScreenController.intTime.value,
+                        time: randomResultScreenController.intTime.value.toStringAsFixed(3),
                         color: Colors.green)
                   ],
                 ),

@@ -23,7 +23,7 @@ class RandsimScreen extends StatelessWidget {
           // DataColumn(label: Text("response time")),
         ],
         rows: [
-          for (int i = 0; i <10; i++)
+          for (int i = 0; i <randomResultScreenController.customerNumber.value; i++)
             DataRow(cells: [
               DataCell(Text(randomResultScreenController.startTimeList[i].toString())),
               DataCell(randomResultScreenController.servers.value==2?Text(randomResultScreenController.endTimeList[i].toString()):

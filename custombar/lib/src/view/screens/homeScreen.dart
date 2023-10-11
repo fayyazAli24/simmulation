@@ -3,7 +3,6 @@ import 'package:custombar/src/view/components/dialogBoxContainer.dart';
 import 'package:custombar/src/view/components/mainPageContainer.dart';
 import 'package:custombar/src/view/screens/dataResultScreen.dart';
 import 'package:custombar/src/view/screens/optionsScreen.dart';
-import 'package:custombar/src/view/screens/randomDataScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/randomResultScreenController.dart';
